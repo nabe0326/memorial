@@ -65,15 +65,15 @@ function FilterPanel({
         {({ open }) => (
           <>
             <Disclosure.Button 
-              className={`flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-left text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
+              className={`flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-left text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
                 hasActiveFilters ? 'bg-indigo-50 border-indigo-300 text-indigo-700' : ''
               }`}
             >
-              <div className="flex items-center space-x-2">
-                <FunnelIcon className="h-4 w-4" />
-                <span>フィルター</span>
+              <div className="flex items-center space-x-1 sm:space-x-2 min-w-0">
+                <FunnelIcon className="h-4 w-4 flex-shrink-0" />
+                <span className="truncate">フィルター</span>
                 {hasActiveFilters && (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 flex-shrink-0">
                     適用中
                   </span>
                 )}
@@ -194,7 +194,7 @@ function FilterPanel({
                       <CalendarIcon className="h-4 w-4 inline mr-1" />
                       日付範囲
                     </label>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs text-gray-500 mb-1">開始日</label>
                         <input

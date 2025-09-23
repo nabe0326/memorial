@@ -52,13 +52,13 @@ function TimelineItem({ event, onEdit, onDelete, onClick }) {
             className="flex-1 bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer"
             onClick={handleItemClick}
           >
-            <div className="flex items-start justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-0">
               <div className="flex-1 min-w-0">
-                <div className="flex items-center space-x-2">
-                  <h3 className="text-sm font-medium text-gray-900 truncate">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 gap-1 sm:gap-0">
+                  <h3 className="text-sm font-medium text-gray-900 break-words">
                     {event.title}
                   </h3>
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium self-start ${
                     event.category === '誕生日' 
                       ? 'bg-pink-100 text-pink-800' 
                       : 'bg-blue-100 text-blue-800'
@@ -74,10 +74,12 @@ function TimelineItem({ event, onEdit, onDelete, onClick }) {
                   </div>
                 )}
                 
-                <div className="flex items-center mt-1 text-sm text-gray-600">
-                  <CalendarIcon className="h-3 w-3 mr-1" />
-                  {format(eventDate, 'yyyy年M月d日(E)', { locale: ja })}
-                  <span className={`ml-2 text-xs ${isUpcoming ? 'text-green-600' : 'text-gray-400'}`}>
+                <div className="flex flex-col sm:flex-row sm:items-center mt-1 text-sm text-gray-600 gap-1 sm:gap-0">
+                  <div className="flex items-center">
+                    <CalendarIcon className="h-3 w-3 mr-1" />
+                    {format(eventDate, 'yyyy年M月d日(E)', { locale: ja })}
+                  </div>
+                  <span className={`text-xs self-start sm:ml-2 ${isUpcoming ? 'text-green-600' : 'text-gray-400'}`}>
                     {timeDistance}
                   </span>
                 </div>
@@ -96,7 +98,7 @@ function TimelineItem({ event, onEdit, onDelete, onClick }) {
               </div>
 
               {/* アクションボタン */}
-              <div className="flex items-center space-x-1 ml-2">
+              <div className="flex items-center space-x-1 sm:ml-2 self-start">
                 {onEdit && (
                   <button
                     onClick={(e) => {

@@ -79,7 +79,7 @@ function CalendarView({ onEventClick, onSelectSlot }) {
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-900">カレンダー</h2>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 flex-wrap">
             <button
               onClick={() => setView('month')}
               className={`px-3 py-1 text-sm font-medium rounded-md ${
@@ -113,9 +113,23 @@ function CalendarView({ onEventClick, onSelectSlot }) {
             .rbc-agenda-view .rbc-agenda-event-cell {
               padding-left: 10px;
             }
+            @media (max-width: 768px) {
+              .rbc-toolbar {
+                flex-direction: column;
+                gap: 10px;
+              }
+              .rbc-toolbar .rbc-btn-group {
+                flex-wrap: wrap;
+                justify-content: center;
+              }
+              .rbc-toolbar-label {
+                font-size: 16px;
+                margin: 8px 0;
+              }
+            }
           `}
         </style>
-        <div style={{ height: '600px' }}>
+        <div style={{ height: window.innerWidth < 768 ? '500px' : '600px' }}>
           <Calendar
             localizer={localizer}
             events={calendarEvents}

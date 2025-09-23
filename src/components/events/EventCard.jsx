@@ -21,7 +21,7 @@ function EventCard({ event, onEdit, onDelete, showPersonName = true }) {
   return (
     <>
       <div className="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-0">
           <div className="flex items-start space-x-3">
             <div className={`flex-shrink-0 rounded-full p-2 ${
               event.category === '誕生日' ? 'bg-pink-100' : 'bg-blue-100'
@@ -33,7 +33,7 @@ function EventCard({ event, onEdit, onDelete, showPersonName = true }) {
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-medium text-gray-900 truncate">
+              <h3 className="text-sm font-medium text-gray-900 break-words">
                 {event.title}
               </h3>
               {showPersonName && event.person_name && (

@@ -130,14 +130,14 @@ function PersonCard({ person, onEdit, onDelete }) {
         )}
 
         {/* フッター */}
-        <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
+        <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-gray-500 gap-2 sm:gap-0">
           <div className="flex items-center space-x-4">
             <span className="flex items-center">
               <CalendarDaysIcon className="h-3 w-3 mr-1" />
               {person.events?.length || 0}件のイベント
             </span>
           </div>
-          <span>
+          <span className="text-right">
             {formatDistanceToNow(new Date(person.created_at), { 
               addSuffix: true, 
               locale: ja 

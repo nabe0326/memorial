@@ -96,7 +96,8 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
         <select
           id="person_id"
           {...register('person_id')}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
+          style={{ fontSize: '16px', lineHeight: '1.5' }}
         >
           <option value="">人物を選択してください</option>
           {persons.map((person) => (
@@ -118,7 +119,8 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
         <select
           id="category"
           {...register('category')}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
+          style={{ fontSize: '16px', lineHeight: '1.5' }}
         >
           <option value="誕生日">誕生日</option>
           <option value="記念日">記念日</option>
@@ -144,7 +146,8 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
           id="title"
           {...register('title')}
           placeholder="イベントのタイトルを入力"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
+          style={{ fontSize: '16px', lineHeight: '1.5' }}
         />
         {errors.title && (
           <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
@@ -160,7 +163,8 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
           type="date"
           id="date"
           {...register('date')}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
+          style={{ fontSize: '16px', lineHeight: '1.5' }}
         />
         {errors.date && (
           <p className="mt-1 text-sm text-red-600">{errors.date.message}</p>
@@ -177,7 +181,8 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
           rows={3}
           {...register('description')}
           placeholder="イベントの詳細や思い出などを入力"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
+          style={{ fontSize: '16px', lineHeight: '1.5' }}
         />
         {errors.description && (
           <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
@@ -206,7 +211,8 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
             <select
               id="notification_days_before"
               {...register('notification_days_before', { valueAsNumber: true })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
+          style={{ fontSize: '16px', lineHeight: '1.5' }}
             >
               <option value={0}>当日</option>
               <option value={1}>1日前</option>

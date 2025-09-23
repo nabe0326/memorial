@@ -65,9 +65,9 @@ function TimelineView({ onEventClick, onEventEdit, onEventDelete }) {
   return (
     <div className="bg-white rounded-lg shadow">
       <div className="p-4 border-b border-gray-200">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
           <h2 className="text-lg font-semibold text-gray-900">タイムライン</h2>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 justify-center sm:justify-end">
             <button
               onClick={() => setViewMode('month')}
               className={`px-3 py-1 text-sm font-medium rounded-md ${
@@ -92,7 +92,7 @@ function TimelineView({ onEventClick, onEventEdit, onEventDelete }) {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         <div className="space-y-8">
           {groupedEntries.map(([period, periodEvents]) => (
             <TimelineGroup
