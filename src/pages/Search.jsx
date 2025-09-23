@@ -54,7 +54,7 @@ function Search() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-4 sm:px-0">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-2xl font-semibold text-gray-900">検索</h1>
@@ -65,7 +65,7 @@ function Search() {
       </div>
 
       {/* 検索バー */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
         <div className="space-y-4">
           <SearchBar
             value={query}

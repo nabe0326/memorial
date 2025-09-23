@@ -109,7 +109,8 @@ function PersonForm({ person, onSubmit, onCancel, loading = false }) {
             {...register('name')}
             type="text"
             id="name"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base min-h-[44px]"
+            style={{ fontSize: '16px', lineHeight: '1.5' }}
             placeholder="田中太郎"
           />
           {errors.name && (
@@ -125,7 +126,8 @@ function PersonForm({ person, onSubmit, onCancel, loading = false }) {
           <select
             {...register('relationship')}
             id="relationship"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base min-h-[44px]"
+            style={{ fontSize: '16px', lineHeight: '1.5' }}
           >
             {relationshipOptions.map(option => (
               <option key={option.value} value={option.value}>
@@ -147,7 +149,8 @@ function PersonForm({ person, onSubmit, onCancel, loading = false }) {
             {...register('memo')}
             id="memo"
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base min-h-[44px]"
+            style={{ fontSize: '16px', lineHeight: '1.5' }}
             placeholder="この人についてのメモを入力..."
           />
           {errors.memo && (
@@ -189,7 +192,8 @@ function PersonForm({ person, onSubmit, onCancel, loading = false }) {
                 {...register('birthdayDate')}
                 type="date"
                 id="birthdayDate"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base min-h-[44px]"
+            style={{ fontSize: '16px', lineHeight: '1.5' }}
               />
             </div>
 

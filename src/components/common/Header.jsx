@@ -37,8 +37,8 @@ function Header({ onMenuClick }) {
             <Menu.Button className="-m-1.5 flex items-center p-1.5">
               <span className="sr-only">ユーザーメニューを開く</span>
               <UserCircleIcon className="h-8 w-8 text-gray-400" />
-              <span className="hidden lg:flex lg:items-center">
-                <span className="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">
+              <span className="hidden md:flex lg:items-center">
+                <span className="ml-4 text-sm font-semibold leading-6 text-gray-900 truncate max-w-32" aria-hidden="true">
                   {user?.email || 'ユーザー'}
                 </span>
                 <svg
@@ -64,7 +64,7 @@ function Header({ onMenuClick }) {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+              <Menu.Items className="absolute right-0 z-10 mt-2.5 w-40 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                 <Menu.Item>
                   {({ active }) => (
                     <a

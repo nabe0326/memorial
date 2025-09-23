@@ -29,7 +29,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function SidebarContent() {
+function SidebarContent({ onNavigate }) {
+  const handleNavClick = () => {
+    if (onNavigate) {
+      onNavigate()
+    }
+  }
+
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
       {/* ロゴ */}
@@ -47,6 +53,7 @@ function SidebarContent() {
                 <li key={item.name}>
                   <NavLink
                     to={item.href}
+                    onClick={handleNavClick}
                     className={({ isActive }) =>
                       classNames(
                         isActive
@@ -81,6 +88,7 @@ function SidebarContent() {
                 <li key={item.name}>
                   <NavLink
                     to={item.href}
+                    onClick={handleNavClick}
                     className={({ isActive }) =>
                       classNames(
                         isActive
@@ -158,7 +166,7 @@ function Sidebar({ open, setOpen }) {
                     </button>
                   </div>
                 </Transition.Child>
-                <SidebarContent />
+                <SidebarContent onNavigate={() => setOpen(false)} />
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -1,9 +1,35 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import { PlusIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { usePersons, useDeletePerson } from '../hooks/usePersons'
 import PersonCard from '../components/persons/PersonCard'
 import PersonModal from '../components/persons/PersonModal'
 import { FORM_OPTIONS } from '../types'
+
+// 画面サイズに応じたプレースホルダーテキストを生成
+function useResponsivePlaceholder(defaultPlaceholder) {
+  const [placeholder, setPlaceholder] = useState(defaultPlaceholder)
+  
+  useEffect(() => {
+    const updatePlaceholder = () => {
+      const width = window.innerWidth
+      
+      if (width < 375) {
+        setPlaceholder('名前で検索...')
+      } else if (width < 430) {
+        setPlaceholder('名前で検索...')
+      } else {
+        setPlaceholder(defaultPlaceholder)
+      }
+    }
+    
+    updatePlaceholder()
+    window.addEventListener('resize', updatePlaceholder)
+    
+    return () => window.removeEventListener('resize', updatePlaceholder)
+  }, [defaultPlaceholder])
+  
+  return placeholder
+}
 
 function PersonList() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -11,6 +37,7 @@ function PersonList() {
   const [showModal, setShowModal] = useState(false)
   const [editingPerson, setEditingPerson] = useState(null)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null)
+  const searchPlaceholder = useResponsivePlaceholder('名前で検索...')
 
   const { data: persons = [], isLoading, error } = usePersons()
   const deletePersonMutation = useDeletePerson()
@@ -101,7 +128,7 @@ function PersonList() {
 
       {/* フィルター・検索 */}
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* 検索 */}
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -109,10 +136,11 @@ function PersonList() {
             </div>
             <input
               type="text"
-              placeholder="名前で検索..."
+              placeholder={searchPlaceholder}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-normal bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-base min-h-[44px]"
+              style={{ fontSize: '16px', lineHeight: '1.5' }}
             />
           </div>
 
@@ -135,7 +163,7 @@ function PersonList() {
 
       {/* 統計情報 */}
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
           <div>
             <div className="text-2xl font-bold text-blue-600">{persons.length}</div>
             <div className="text-sm text-gray-500">総人数</div>
@@ -173,7 +201,7 @@ function PersonList() {
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredPersons.map(person => (
             <PersonCard
               key={person.id}
@@ -195,7 +223,7 @@ function PersonList() {
       {/* 削除確認モーダル */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 bg-white rounded-md shadow-lg">
+          <div className="relative top-20 mx-auto p-5 border w-full max-w-md bg-white rounded-md shadow-lg">
             <div className="mt-3 text-center">
               <h3 className="text-lg font-medium text-gray-900">人物を削除</h3>
               <div className="mt-2 px-7 py-3">

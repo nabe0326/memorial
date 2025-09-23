@@ -1,11 +1,43 @@
 import { useState, useRef, useEffect } from 'react'
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
+// 画面サイズに応じたプレースホルダーテキストを生成
+function useResponsivePlaceholder(defaultPlaceholder) {
+  const [responsivePlaceholder, setResponsivePlaceholder] = useState(defaultPlaceholder)
+  
+  useEffect(() => {
+    const updatePlaceholder = () => {
+      const width = window.innerWidth
+      
+      if (width < 375) {
+        // 極小画面 (iPhone SE以下)
+        setResponsivePlaceholder('検索...')
+      } else if (width < 430) {
+        // 小画面 (iPhone SE〜iPhone 14 Pro Max)
+        setResponsivePlaceholder('イベントや人物名で検索...')
+      } else if (width < 768) {
+        // 中画面 (タブレット等)
+        setResponsivePlaceholder('イベントや人物名、メモで検索...')
+      } else {
+        // 大画面 (PC等)
+        setResponsivePlaceholder(defaultPlaceholder)
+      }
+    }
+    
+    updatePlaceholder()
+    window.addEventListener('resize', updatePlaceholder)
+    
+    return () => window.removeEventListener('resize', updatePlaceholder)
+  }, [defaultPlaceholder])
+  
+  return responsivePlaceholder
+}
+
 function SearchBar({ 
   value, 
   onChange, 
   onClear, 
-  placeholder = "イベントや人物名で検索...",
+  placeholder = "イベントや人物名、メモなどで検索...",
   showHistory = true,
   searchHistory = [],
   onSelectHistory,
@@ -14,6 +46,7 @@ function SearchBar({
   const [isFocused, setIsFocused] = useState(false)
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false)
   const inputRef = useRef(null)
+  const responsivePlaceholder = useResponsivePlaceholder(placeholder)
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -83,10 +116,11 @@ function SearchBar({
           onFocus={handleFocus}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          className={`block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+          placeholder={responsivePlaceholder}
+          className={`block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md leading-normal bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 text-base min-h-[44px] ${
             isFocused ? 'ring-1 ring-indigo-500 border-indigo-500' : ''
           }`}
+          style={{ fontSize: '16px', lineHeight: '1.5' }}
         />
 
         {value && (
