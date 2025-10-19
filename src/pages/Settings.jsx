@@ -67,39 +67,13 @@ function Settings() {
     setIsNotificationSettingsOpen(false)
   }
 
-  const handleDeleteAccount = async (immediate = false) => {
+  const handleDeleteAccount = async () => {
     try {
-      const deletionMode = immediate ? 'immediate' : 'delayed'
-      const result = await deleteAccount(deletionMode)
+      const result = await deleteAccount()
       
       if (result.success) {
-        let message = ''
-        if (result.immediate) {
-          message = 'アカウントが完全に削除されました'
-          // 即座削除の場合は即座にログイン画面へ
-          alert(message)
-          navigate('/auth', { replace: true })
-          return
-        } else if (result.delayed) {
-          const deletionDate = new Date(result.deletionDate).toLocaleDateString('ja-JP')
-          message = `ユーザーデータを削除しました。認証アカウントは${deletionDate}に自動削除されます。それまでは再ログイン可能です。`
-        } else if (result.fallback) {
-          message = result.message || 'ユーザーデータを削除しました。認証アカウントは手動で削除してください。'
-          // フォールバック削除の場合も即座にログイン画面へ
-          alert(message)
-          navigate('/auth', { replace: true })
-          return
-        } else {
-          message = 'アカウントが削除されました'
-        }
-        
-        alert(message)
-        
-        // 削除成功後、ログイン画面にリダイレクト
-        setTimeout(() => {
-          navigate('/auth', { replace: true })
-        }, 1000) // 1秒後にリダイレクト
-        
+        alert('アカウントが完全に削除されました')
+        navigate('/auth', { replace: true })
       } else {
         alert(`アカウント削除に失敗しました: ${result.error}`)
       }
@@ -403,23 +377,13 @@ function Settings() {
                   キャンセル
                 </button>
                 <button
-                  onClick={() => handleDeleteAccount(false)}
-                  disabled={authLoading}
-                  className="px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {authLoading ? '処理中...' : '7日後に削除（推奨）'}
-                </button>
-                <button
-                  onClick={() => handleDeleteAccount(true)}
+                  onClick={handleDeleteAccount}
                   disabled={authLoading}
                   className="px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {authLoading ? '削除中...' : '即座に削除'}
+                  {authLoading ? '削除中...' : 'アカウントを削除'}
                 </button>
               </div>
-              <p className="text-xs text-gray-500 text-center">
-                ※7日後削除を選択した場合、期間内であれば再ログインで削除をキャンセルできます
-              </p>
             </div>
           </div>
         </div>

@@ -5,13 +5,8 @@ import { useAuth } from '../hooks/useAuth'
 import Layout from '../components/common/Layout'
 import ErrorBoundary from '../components/common/ErrorBoundary'
 import AuthTestPage from '../components/AuthTestPage'
-import PWAPrompt from '../components/common/PWAPrompt'
-import OfflineIndicator from '../components/common/OfflineIndicator'
-import UpdatePrompt from '../components/common/UpdatePrompt'
 import { queryClient } from '../lib/queryClient'
 
-// React Query DevToolsのコンポーネント
-const ReactQueryDevtools = () => null
 
 // ページコンポーネントのインポート
 import PersonList from '../pages/PersonList'
@@ -93,9 +88,6 @@ function AppRouter() {
         </Routes>
       </BrowserRouter>
       
-      {/* 開発環境でのReact Query DevTools */}
-      <ReactQueryDevtools initialIsOpen={false} />
-      
       {/* Toast通知 */}
       <Toaster
         position="top-right"
@@ -118,10 +110,6 @@ function AppRouter() {
         }}
       />
 
-      {/* PWA関連コンポーネント - 一時的に無効化 */}
-      {/* <PWAPrompt />
-      <OfflineIndicator />
-      <UpdatePrompt /> */}
       </QueryClientProvider>
     </ErrorBoundary>
   )

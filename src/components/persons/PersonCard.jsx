@@ -9,17 +9,28 @@ import { HeartIcon } from '@heroicons/react/24/solid'
 import { formatDistanceToNow } from 'date-fns'
 import { ja } from 'date-fns/locale'
 import ActionButtons from '../common/ActionButtons'
-import { PERSON_RELATIONSHIPS, getRelationshipStyle } from '../../types'
+import { RELATIONSHIP_CATEGORIES } from '../../lib/constants'
 
 // 関係性のアイコンを取得
 function getRelationshipIcon(relationship) {
   const iconMap = {
-    [PERSON_RELATIONSHIPS.FAMILY]: HeartIcon,
-    [PERSON_RELATIONSHIPS.FRIEND]: UserCircleIcon,
-    [PERSON_RELATIONSHIPS.COLLEAGUE]: UserCircleIcon,
-    [PERSON_RELATIONSHIPS.OTHER]: UserCircleIcon
+    [RELATIONSHIP_CATEGORIES.FAMILY]: HeartIcon,
+    [RELATIONSHIP_CATEGORIES.FRIEND]: UserCircleIcon,
+    [RELATIONSHIP_CATEGORIES.COLLEAGUE]: UserCircleIcon,
+    [RELATIONSHIP_CATEGORIES.OTHER]: UserCircleIcon
   }
   return iconMap[relationship] || UserCircleIcon
+}
+
+// 関係性のスタイルを取得
+function getRelationshipStyle(relationship) {
+  const styleMap = {
+    [RELATIONSHIP_CATEGORIES.FAMILY]: 'text-red-600 bg-red-50',
+    [RELATIONSHIP_CATEGORIES.FRIEND]: 'text-blue-600 bg-blue-50',
+    [RELATIONSHIP_CATEGORIES.COLLEAGUE]: 'text-green-600 bg-green-50',
+    [RELATIONSHIP_CATEGORIES.OTHER]: 'text-gray-600 bg-gray-50'
+  }
+  return styleMap[relationship] || 'text-gray-600 bg-gray-50'
 }
 
 // 直近のイベントを取得

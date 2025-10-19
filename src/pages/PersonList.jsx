@@ -3,7 +3,7 @@ import { PlusIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { usePersons, useDeletePerson } from '../hooks/usePersons'
 import PersonCard from '../components/persons/PersonCard'
 import PersonModal from '../components/persons/PersonModal'
-import { FORM_OPTIONS } from '../types'
+import { RELATIONSHIP_OPTIONS } from '../lib/constants'
 
 // 画面サイズに応じたプレースホルダーテキストを生成
 function useResponsivePlaceholder(defaultPlaceholder) {
@@ -54,7 +54,7 @@ function PersonList() {
   // 関係性でのフィルタリングオプション（メモ化）
   const relationshipOptions = useMemo(() => [
     { value: 'all', label: 'すべて' },
-    ...FORM_OPTIONS.RELATIONSHIPS.slice(1) // '選択してください'を除く
+    ...RELATIONSHIP_OPTIONS.slice(1) // '選択してください'を除く
   ], [])
 
   const handleAddPerson = useCallback(() => {
