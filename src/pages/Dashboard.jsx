@@ -5,7 +5,7 @@ import { usePersons } from '../hooks/usePersons'
 import { useUpcomingEvents } from '../hooks/useEvents'
 import PersonModal from '../components/persons/PersonModal'
 import UpcomingEvents from '../components/events/UpcomingEvents'
-import { EVENT_CATEGORIES } from '../types'
+import { EVENT_CATEGORIES } from '../lib/constants'
 
 function Dashboard() {
   const [isPersonModalOpen, setIsPersonModalOpen] = useState(false)
