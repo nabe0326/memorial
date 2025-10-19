@@ -76,11 +76,19 @@ function Settings() {
         let message = ''
         if (result.immediate) {
           message = 'アカウントが完全に削除されました'
+          // 即座削除の場合は即座にログイン画面へ
+          alert(message)
+          navigate('/auth', { replace: true })
+          return
         } else if (result.delayed) {
           const deletionDate = new Date(result.deletionDate).toLocaleDateString('ja-JP')
           message = `ユーザーデータを削除しました。認証アカウントは${deletionDate}に自動削除されます。それまでは再ログイン可能です。`
         } else if (result.fallback) {
           message = result.message || 'ユーザーデータを削除しました。認証アカウントは手動で削除してください。'
+          // フォールバック削除の場合も即座にログイン画面へ
+          alert(message)
+          navigate('/auth', { replace: true })
+          return
         } else {
           message = 'アカウントが削除されました'
         }
@@ -89,7 +97,7 @@ function Settings() {
         
         // 削除成功後、ログイン画面にリダイレクト
         setTimeout(() => {
-          navigate('/auth')
+          navigate('/auth', { replace: true })
         }, 1000) // 1秒後にリダイレクト
         
       } else {
