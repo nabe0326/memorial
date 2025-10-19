@@ -7,7 +7,8 @@ export function transformEventFromDB(event) {
     person_name: event.persons?.name,
     description: event.memo || '',
     notification_enabled: event.notification_settings?.email || false,
-    notification_days_before: event.notification_settings?.days_before?.[0] || 1
+    notification_days_before: event.notification_settings?.days_before?.[0] || 1,
+    notification_time: event.notification_settings?.time || '09:00'
   }
 }
 
@@ -22,7 +23,8 @@ export function transformEventToDB(eventData) {
     notification_settings: {
       email: eventData.notification_enabled || false,
       browser: false,
-      days_before: eventData.notification_enabled ? [eventData.notification_days_before || 1] : []
+      days_before: eventData.notification_enabled ? [eventData.notification_days_before || 1] : [],
+      time: eventData.notification_time || '09:00'
     }
   }
 }
@@ -37,11 +39,12 @@ export function transformEventUpdatesToDB(updates) {
   if ('category' in updates) dbUpdates.category = updates.category
   if ('description' in updates) dbUpdates.memo = updates.description || ''
   
-  if ('notification_enabled' in updates || 'notification_days_before' in updates) {
+  if ('notification_enabled' in updates || 'notification_days_before' in updates || 'notification_time' in updates) {
     dbUpdates.notification_settings = {
       email: updates.notification_enabled !== undefined ? updates.notification_enabled : false,
       browser: false,
-      days_before: (updates.notification_enabled && updates.notification_days_before) ? [updates.notification_days_before] : []
+      days_before: (updates.notification_enabled && updates.notification_days_before) ? [updates.notification_days_before] : [],
+      time: updates.notification_time || '09:00'
     }
   }
   

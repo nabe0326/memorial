@@ -8,7 +8,6 @@ import {
   XMarkIcon 
 } from '@heroicons/react/24/outline'
 import { useSimpleNotifications } from '../../hooks/useSimpleNotifications'
-import { NOTIFICATION_DAYS_OPTIONS } from '../../lib/constants'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -152,23 +151,6 @@ function NotificationSettings({ onSave, onClose }) {
                     </div>
                   )}
 
-                  {/* 通知タイミング */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      通知タイミング（何日前）
-                    </label>
-                    <select
-                      value={localSettings.browser?.defaultDaysBefore || 1}
-                      onChange={(e) => updateSettings('browser', 'defaultDaysBefore', parseInt(e.target.value))}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    >
-                      {NOTIFICATION_DAYS_OPTIONS.map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
 
                   {/* 通知種類 */}
                   <div>

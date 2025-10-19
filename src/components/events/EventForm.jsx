@@ -14,6 +14,7 @@ const eventSchema = z.object({
   description: z.string().optional(),
   notification_enabled: z.boolean(),
   notification_days_before: z.number().min(0).max(365),
+  notification_time: z.string().regex(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, '有効な時刻を入力してください'),
 })
 
 function EventForm({ event, personId = null, initialDate = null, onSubmit, onCancel, isSubmitting = false }) {
@@ -37,6 +38,7 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
       description: '',
       notification_enabled: true,
       notification_days_before: 1,
+      notification_time: '09:00',
     }
   })
 
@@ -54,6 +56,7 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
         description: event.description || '',
         notification_enabled: event.notification_enabled || true,
         notification_days_before: event.notification_days_before || 1,
+        notification_time: event.notification_time || '09:00',
       })
     } else if (personId || initialDate) {
       // 新規作成時にpersonIdまたはinitialDateが指定されている場合
@@ -65,6 +68,7 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
         description: '',
         notification_enabled: true,
         notification_days_before: 1,
+        notification_time: '09:00',
       })
     }
   }, [event, personId, initialDate, reset])
@@ -204,26 +208,47 @@ function EventForm({ event, personId = null, initialDate = null, onSubmit, onCan
         </div>
         
         {watchedNotificationEnabled && (
-          <div className="mt-3">
-            <label htmlFor="notification_days_before" className="block text-sm font-medium text-gray-700">
-              何日前に通知しますか？
-            </label>
-            <select
-              id="notification_days_before"
-              {...register('notification_days_before', { valueAsNumber: true })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
-          style={{ fontSize: '16px', lineHeight: '1.5' }}
-            >
-              <option value={0}>当日</option>
-              <option value={1}>1日前</option>
-              <option value={3}>3日前</option>
-              <option value={7}>1週間前</option>
-              <option value={14}>2週間前</option>
-              <option value={30}>1ヶ月前</option>
-            </select>
-            {errors.notification_days_before && (
-              <p className="mt-1 text-sm text-red-600">{errors.notification_days_before.message}</p>
-            )}
+          <div className="mt-3 space-y-4">
+            <div>
+              <label htmlFor="notification_days_before" className="block text-sm font-medium text-gray-700">
+                何日前に通知しますか？
+              </label>
+              <select
+                id="notification_days_before"
+                {...register('notification_days_before', { valueAsNumber: true })}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
+                style={{ fontSize: '16px', lineHeight: '1.5' }}
+              >
+                <option value={0}>当日</option>
+                <option value={1}>1日前</option>
+                <option value={3}>3日前</option>
+                <option value={7}>1週間前</option>
+                <option value={14}>2週間前</option>
+                <option value={30}>1ヶ月前</option>
+              </select>
+              {errors.notification_days_before && (
+                <p className="mt-1 text-sm text-red-600">{errors.notification_days_before.message}</p>
+              )}
+            </div>
+            
+            <div>
+              <label htmlFor="notification_time" className="block text-sm font-medium text-gray-700">
+                通知時刻
+              </label>
+              <input
+                type="time"
+                id="notification_time"
+                {...register('notification_time')}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base min-h-[44px] py-2 px-3"
+                style={{ fontSize: '16px', lineHeight: '1.5' }}
+              />
+              {errors.notification_time && (
+                <p className="mt-1 text-sm text-red-600">{errors.notification_time.message}</p>
+              )}
+              <p className="mt-1 text-xs text-gray-500">
+                指定した時刻に通知が送信されます
+              </p>
+            </div>
           </div>
         )}
       </div>

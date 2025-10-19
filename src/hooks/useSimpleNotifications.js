@@ -120,8 +120,11 @@ export function useSimpleNotifications() {
   const sendEventNotification = useCallback((event) => {
     if (!isEnabled) return false
     
+    const daysBeforeText = event.notification_days_before === 0 ? '今日' : `${event.notification_days_before}日前`
+    const timeText = event.notification_time ? ` (${event.notification_time}設定)` : ''
+    
     const title = `${event.person_name}さんの${event.category}`
-    const body = `${event.title} - 明日です！`
+    const body = `${event.title} - ${daysBeforeText}です！${timeText}`
     
     return sendNotification(title, {
       body,

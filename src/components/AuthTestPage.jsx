@@ -25,7 +25,7 @@ function AuthTestPage() {
   }
 
   if (isAuthenticated && user) {
-    // 認証済みユーザーはタイムライン画面（ホーム）にリダイレクト
+    // 認証済みユーザーはタイムライン画面にリダイレクト
     return <Navigate to="/" replace />
   }
 
